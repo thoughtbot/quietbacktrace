@@ -1,0 +1,17 @@
+Quiet Backtrace
+===============
+
+  by Dan Croak (dcroak@thoughtbot.com) 
+     James Golick (jamesgolick@gmail.com) 
+     Joe Ferris (jferris@thoughtbot.com)
+  with special thanks to the Boston.rb group
+
+  https://svn.thoughtbot.com/gems/quiet_backtrace
+  sudo gem install quiet_backtrace
+  
+Quiet Backtrace suppresses the noise in your Test::Unit backtrace.
+It also provides hooks for you to add additional filters.
+
+It requires Test::Unit. 
+
+Copyright (c) 2007 Dan Croak, thoughtbot, inc., released under the MIT license
