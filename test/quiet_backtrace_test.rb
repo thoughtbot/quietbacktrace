@@ -63,7 +63,7 @@ class QuietBacktraceTest < Test::Unit::TestCase
     
     setup do
       reset_filter!
-      @rails_root = '/Users/james/Documents/railsApps/generating_station'
+      ::RAILS_ROOT = '/Users/james/Documents/railsApps/generating_station'
       self.backtrace_silencers << :rails_vendor
       self.backtrace_filters << :rails_root
       @mock = MockTestUnit.new
@@ -71,11 +71,11 @@ class QuietBacktraceTest < Test::Unit::TestCase
     end
     
     should "silence any line from the RAILS_ROOT/vendor directory" do
-      assert !@rails_quiet_backtrace.any? { |line| line.include?("#{@rails_root}/vendor") }, "One or more lines from RAILS_ROOT/vendor directory are not being silenced: #{@rails_quiet_backtrace}"
+      assert !@rails_quiet_backtrace.any? { |line| line.include?("#{RAILS_ROOT}/vendor") }, "One or more lines from RAILS_ROOT/vendor directory are not being silenced: #{@rails_quiet_backtrace.inspect}"
     end
     
     should "remove RAILS_ROOT text from the beginning of lines" do
-      assert !@rails_quiet_backtrace.any? { |line| line.include?("#{@rails_root}") }, "One or more lines that include RAILS_ROOT text are not being filtered: #{@rails_quiet_backtrace}"
+      assert !@rails_quiet_backtrace.any? { |line| line.include?("#{RAILS_ROOT}") }, "One or more lines that include RAILS_ROOT text are not being filtered: #{@rails_quiet_backtrace.inspect}"
     end
     
   end
