@@ -24,13 +24,13 @@ module QuietBacktrace
       if Test::Unit::TestCase.quiet_backtrace
         backtrace.reject! do |line|
           [*Test::Unit::TestCase.backtrace_silencers].any? do |silencer_name|
-            QuietBacktrace::BacktraceFilter.silencers[silencer_name].call(line)
+            QuietBacktrace::BacktraceFilter.silencers[silencer_name].call(line) if silencer_name
           end
         end
 
         backtrace.each do |line|
           [*Test::Unit::TestCase.backtrace_filters].each do |filter_name|
-            QuietBacktrace::BacktraceFilter.filters[filter_name].call(line)
+            QuietBacktrace::BacktraceFilter.filters[filter_name].call(line) if filter_name
           end
         end          
       end

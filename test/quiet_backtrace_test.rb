@@ -32,6 +32,7 @@ class QuietBacktraceTest < Test::Unit::TestCase
   context "The default quiet backtrace" do
     
     setup do
+      reset_filter!
       @mock = MockTestUnit.new
       @default_quiet_backtrace = @mock.filter_backtrace(@backtrace.dup)
     end
@@ -48,8 +49,8 @@ class QuietBacktraceTest < Test::Unit::TestCase
       assert !@default_quiet_backtrace.any? { |line| line =~ /\:in / }, "Method name was not removed from one or more lines: #{@default_quiet_backtrace}"
     end
 
-    should "remove rails root from the beginning of lines" do
-      assert @default_quiet_backtrace.any? { |line| line == 'app/controllers/photos_controller.rb:315' }, "Rails root is not being filtered: #{@default_quiet_backtrace}"
+    should "not silence or filter a legitimate line" do
+      assert @default_quiet_backtrace.any? { |line| line == '/Users/james/Documents/railsApps/generating_station/app/controllers/photos_controller.rb:315' }, "Rails root is not being filtered: #{@default_quiet_backtrace}"
     end
     
   end
@@ -57,19 +58,20 @@ class QuietBacktraceTest < Test::Unit::TestCase
   context "The quiet backtrace with complementary Rails silencers and filters" do
     
     setup do
-      RAILS_ROOT = '/Users/james/Documents/railsApps/generating_station'
-      Test::Unit::TestCase.backtrace_silencers << [:rails_vendor]
-      Test::Unit::TestCase.backtrace_filters << [:rails_root]
+      reset_filter!
+      @rails_root = '/Users/james/Documents/railsApps/generating_station'
+      self.backtrace_silencers << :rails_vendor
+      self.backtrace_filters << :rails_root
       @mock = MockTestUnit.new
       @rails_quiet_backtrace = @mock.filter_backtrace(@backtrace.dup)
     end
     
-    should "from RAILS_ROOT/vendor directory" do
-      assert !@rails_quiet_backtrace.any? { |line| line.include?("#{RAILS_ROOT}/vendor") }, "One or more lines from RAILS_ROOT/vendor directory are not being silenced: #{@rails_quiet_backtrace}"
+    should "silence any line from the RAILS_ROOT/vendor directory" do
+      assert !@rails_quiet_backtrace.any? { |line| line.include?("#{@rails_root}/vendor") }, "One or more lines from RAILS_ROOT/vendor directory are not being silenced: #{@rails_quiet_backtrace}"
     end
     
     should "remove RAILS_ROOT text from the beginning of lines" do
-      assert !@rails_quiet_backtrace.any? { |line| line.include?("#{RAILS_ROOT}") }, "One or more lines that include RAILS_ROOT text are not being filtered: #{@rails_quiet_backtrace}"
+      assert !@rails_quiet_backtrace.any? { |line| line.include?("#{@rails_root}") }, "One or more lines that include RAILS_ROOT text are not being filtered: #{@rails_quiet_backtrace}"
     end
     
   end
@@ -77,7 +79,8 @@ class QuietBacktraceTest < Test::Unit::TestCase
   context "Setting quiet backtrace to false" do
     
     setup do
-      Test::Unit::TestCase.quiet_backtrace = false
+      reset_filter!
+      self.quiet_backtrace = false
       @mock = MockTestUnit.new
       @unfiltered_backtrace = @mock.filter_backtrace(@backtrace.dup)
     end
@@ -88,10 +91,11 @@ class QuietBacktraceTest < Test::Unit::TestCase
     
   end
   
-  context "Overiding the defaults" do
+  context "Overriding the defaults" do
     
     setup do
-      Test::Unit::TestCase.backtrace_silencers = [:test_unit, :rails_vendor]
+      reset_filter!
+      self.backtrace_silencers = [:test_unit, :rails_vendor]
       @mock = MockTestUnit.new
       @not_filtering_gem_root = @mock.filter_backtrace(@backtrace.dup)
     end
@@ -101,4 +105,13 @@ class QuietBacktraceTest < Test::Unit::TestCase
     end
     
   end
+  
+  private
+  
+    def reset_filter!
+      self.quiet_backtrace = true
+      self.backtrace_silencers = [:test_unit, :gem_root]
+      self.backtrace_filters = [:method_name]
+    end
+  
 end
