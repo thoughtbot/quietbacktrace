@@ -12,7 +12,7 @@ module QuietBacktrace
     self.silencers = { :test_unit    => lambda { |line| (line.include?("ruby") && line.include?("/test/unit")) },
                        :gem_root     => lambda { |line| line =~ /ruby\/gems/i },
                        :e1           => lambda { |line| line == "-e:1" },
-                       :rails_vendor => lambda { |line| line.include?("#{RAILS_ROOT}/vendor") if defined?(RAILS_ROOT) }
+                       :rails_vendor => lambda { |line| (line.include?("vendor/plugins") || line.include?("vendor/gems") || line.include?("vendor/rails")) }
     }
 
     mattr_accessor :filters

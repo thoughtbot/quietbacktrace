@@ -71,7 +71,7 @@ class QuietBacktraceTest < Test::Unit::TestCase
     end
     
     should "silence any line from the RAILS_ROOT/vendor directory" do
-      assert !@rails_quiet_backtrace.any? { |line| line.include?("#{RAILS_ROOT}/vendor") }, "One or more lines from RAILS_ROOT/vendor directory are not being silenced: #{@rails_quiet_backtrace.inspect}"
+      assert !@rails_quiet_backtrace.any? { |line| (line.include?("vendor/gems") || line.include?("vendor/plugins") || line.include?("vendor/rails")) }, "One or more lines from the vendor directory are not being silenced: #{@rails_quiet_backtrace.inspect}"
     end
     
     should "remove RAILS_ROOT text from the beginning of lines" do
