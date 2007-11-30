@@ -46,7 +46,7 @@ class QuietBacktraceTest < Test::Unit::TestCase
     end
     
     should "silence any line that includes the e1 nonsense" do
-      assert !@default_quiet_backtrace.any? { |line| line.include?("-e:1") }, "One or more e1 nonsense lines are not being filtered: #{@default_quiet_backtrace}"
+      assert !@default_quiet_backtrace.any? { |line| line == "-e:1" }, "One or more e1 nonsense lines are not being filtered: #{@default_quiet_backtrace}"
     end
 
     should "remove in methods from the end of lines" do
