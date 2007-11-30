@@ -44,6 +44,10 @@ class QuietBacktraceTest < Test::Unit::TestCase
     should "silence any line that includes ruby slash gems" do
       assert !@default_quiet_backtrace.any? { |line| line =~ /ruby\/gems/i }, "One or more lines from ruby/gems are not being filtered: #{@default_quiet_backtrace}"
     end
+    
+    should "silence any line that includes the e1 nonsense" do
+      assert !@default_quiet_backtrace.any? { |line| line.include?("-e:1") }, "One or more e1 nonsense lines are not being filtered: #{@default_quiet_backtrace}"
+    end
 
     should "remove in methods from the end of lines" do
       assert !@default_quiet_backtrace.any? { |line| line =~ /\:in / }, "Method name was not removed from one or more lines: #{@default_quiet_backtrace}"

@@ -11,6 +11,7 @@ module QuietBacktrace
     mattr_accessor :silencers
     self.silencers = { :test_unit    => lambda { |line| (line.include?("ruby") && line.include?("/test/unit")) },
                        :gem_root     => lambda { |line| line =~ /ruby\/gems/i },
+                       :e1           => lambda { |line| line.include?("-e:1") },
                        :rails_vendor => lambda { |line| line.include?("#{RAILS_ROOT}/vendor") if defined?(RAILS_ROOT) }
     }
 
@@ -46,7 +47,7 @@ module QuietBacktrace
         self.quiet_backtrace = true
 
         cattr_accessor :backtrace_silencers
-        self.backtrace_silencers = [:test_unit, :gem_root]
+        self.backtrace_silencers = [:test_unit, :gem_root, :e1]
 
         cattr_accessor :backtrace_filters
         self.backtrace_filters = [:method_name]
