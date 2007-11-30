@@ -7,7 +7,7 @@ Quiet Backtrace
 
   Special thanks to the Boston.rb group for cultivating this idea at our inaugural hackfest.
 
-  sudo gem install quiet_backtrace
+  sudo gem install quietbacktrace
 
   svn repo: https://svn.thoughtbot.com/gems/quiet_backtrace
   mailing list: http://groups.google.com/group/quiet_backtrace
