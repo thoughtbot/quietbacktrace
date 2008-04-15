@@ -17,4 +17,5 @@ It also provides hooks for you to add additional filters.
 
 It requires Test::Unit. 
 
-Copyright (c) 2007 Dan Croak, thoughtbot, inc., released under the MIT license
+Copyright (c) 2007 Dan Croak, James Golick, Joe Ferris, thoughtbot, inc., 
+released under the MIT license
