@@ -30,8 +30,6 @@ spec = Gem::Specification.new do |s|
   s.summary     = %q{Quiet Backtrace suppresses the noise in your Test::Unit backtrace.}
   s.description = %q{Quiet Backtrace suppresses the noise in your Test::Unit backtrace.def backtrace.
                      It also provides hooks for you to add additional silencers and filters.}
-  end
-  }
 
   s.files        = FileList['[A-Z]*', 'lib/**/*.rb', 'test/**/*.rb']
   s.require_path = 'lib'
