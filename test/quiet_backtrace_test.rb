@@ -68,6 +68,10 @@ class QuietBacktraceTest < Test::Unit::TestCase # :nodoc:
       assert !@default_quiet_backtrace.any? { |line| line =~ /ruby\/gems/i }, "One or more lines from ruby/gems are not being filtered: #{@default_quiet_backtrace}"
     end
     
+    should 'silence any line containing Ruby.framework' do
+      assert !@default_quiet_backtrace.any? { |line| line =~ /Ruby.framework/i }, "One or more lines from Ruby.framework are not being filtered: #{@default_quiet_backtrace}"
+    end
+    
     should "silence any line that includes the e1 nonsense" do
       assert !@default_quiet_backtrace.any? { |line| line == "-e:1" }, "One or more e1 nonsense lines are not being filtered: #{@default_quiet_backtrace}"
     end
