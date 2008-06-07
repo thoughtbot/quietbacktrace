@@ -37,7 +37,8 @@ class QuietBacktraceTest < Test::Unit::TestCase # :nodoc:
     @backtrace = [ "/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/assertions.rb:48:in `assert_block'", 
                    "/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/assertions.rb:495:in `_wrap_assertion'", 
                    "/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/assertions.rb:46:in `assert_block'", 
-                   "/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/assertions.rb:313:in `flunk'", 
+                   "/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/assertions.rb:313:in `flunk'",
+                   "/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/benchmark.rb:293", 
                    "/Users/james/Documents/railsApps/generating_station/app/controllers/photos_controller.rb:315:in `something'",
                    "/Users/james/Documents/railsApps/generating_station/vendor/plugins/quiet_stacktraces/test/quiet_stacktraces_test.rb:21:in `test_this_plugin'", 
                    "/Users/james/Documents/railsApps/generating_station/vendor/plugins/quiet_stacktraces/quiet_stacktraces_test.rb:25:in `test_this_plugin'",
@@ -53,7 +54,7 @@ class QuietBacktraceTest < Test::Unit::TestCase # :nodoc:
                    "/Users/james/Documents/railsApps/generating_station/vendor/plugins/quiet_stacktraces/test/quiet_stacktraces_test.rb:20"]
   end
   
-  context "The default quiet backtrace" do
+  context "A default quiet backtrace" do
     setup do
       reset_filter!
       @mock = MockTestUnit.new
@@ -69,7 +70,7 @@ class QuietBacktraceTest < Test::Unit::TestCase # :nodoc:
     end
     
     should 'silence any line containing Ruby.framework' do
-      assert !@default_quiet_backtrace.any? { |line| line =~ /Ruby.framework/i }, "One or more lines from Ruby.framework are not being filtered: #{@default_quiet_backtrace}"
+      assert !@default_quiet_backtrace.any? { |line| line.include?("Ruby.framework") }, "One or more lines from Ruby.framework are not being filtered: #{@default_quiet_backtrace}"
     end
     
     should "silence any line that includes the e1 nonsense" do
@@ -85,7 +86,7 @@ class QuietBacktraceTest < Test::Unit::TestCase # :nodoc:
     end
   end
   
-  context "The quiet backtrace with complementary Rails silencers and filters" do
+  context "A quiet backtrace with complementary Rails silencers and filters" do
     setup do
       reset_filter!
       ::RAILS_ROOT = '/Users/james/Documents/railsApps/generating_station'
