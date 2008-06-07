@@ -1,14 +1,38 @@
-require 'quiet_backtrace'
+# = Quiet Backtrace Test 
+#
+# It is worth looking through the Quiet Backtrace test source 
+# to see how Shoulda and Quiet Backtrace play well together.
+#
+# Shoulda's context blocks are perfect spots to turn Quiet Backtrace
+# off if you need a more verbose backtrace to debug a particular problem.
+#
+# For example:
+#   context "Setting quiet backtrace to false" do
+#   
+#     setup do
+#       self.quiet_backtrace = false
+#     end
+#   
+#     should "keep the backtrace noisy" do
+#       assert_equal @backtrace, @unfiltered_backtrace
+#     end
+#   
+#   end
+#
+# For more on Shoulda, see http://thoughtbot.com/projects/shoulda
+
+require File.expand_path('../lib/quietbacktrace', File.dirname(__FILE__))
 require 'test/unit'
 require 'rubygems'
 require 'shoulda'
 
-class MockTestUnit
+class MockTestUnit # :nodoc:
   def filter_backtrace(backtrace); end
   include QuietBacktrace::BacktraceFilter
 end
 
-class QuietBacktraceTest < Test::Unit::TestCase
+class QuietBacktraceTest < Test::Unit::TestCase # :nodoc:
+
   def setup
     @backtrace = [ "/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/assertions.rb:48:in `assert_block'", 
                    "/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/test/unit/assertions.rb:495:in `_wrap_assertion'", 
@@ -30,7 +54,6 @@ class QuietBacktraceTest < Test::Unit::TestCase
   end
   
   context "The default quiet backtrace" do
-    
     setup do
       reset_filter!
       @mock = MockTestUnit.new
@@ -56,11 +79,9 @@ class QuietBacktraceTest < Test::Unit::TestCase
     should "not silence or filter a legitimate line" do
       assert @default_quiet_backtrace.any? { |line| line == '/Users/james/Documents/railsApps/generating_station/app/controllers/photos_controller.rb:315' }, "Rails root is not being filtered: #{@default_quiet_backtrace}"
     end
-    
   end
   
   context "The quiet backtrace with complementary Rails silencers and filters" do
-    
     setup do
       reset_filter!
       ::RAILS_ROOT = '/Users/james/Documents/railsApps/generating_station'
@@ -77,11 +98,9 @@ class QuietBacktraceTest < Test::Unit::TestCase
     should "remove RAILS_ROOT text from the beginning of lines" do
       assert !@rails_quiet_backtrace.any? { |line| line.include?("#{RAILS_ROOT}") }, "One or more lines that include RAILS_ROOT text are not being filtered: #{@rails_quiet_backtrace.inspect}"
     end
-    
   end
   
   context "Setting quiet backtrace to false" do
-    
     setup do
       reset_filter!
       self.quiet_backtrace = false
@@ -92,11 +111,9 @@ class QuietBacktraceTest < Test::Unit::TestCase
     should "keep the backtrace noisy" do
       assert_equal @backtrace, @unfiltered_backtrace, "Backtrace was silenced when it was told not to. This tool is a dictator."
     end
-    
   end
   
   context "Overriding the defaults" do
-    
     setup do
       reset_filter!
       self.backtrace_silencers = [:test_unit, :rails_vendor]
@@ -107,7 +124,6 @@ class QuietBacktraceTest < Test::Unit::TestCase
     should "not apply a filter when it is not included in silencers" do
       assert @not_filtering_gem_root.any? { |line| line =~ /ruby\/gems/i }, "One or more lines from ruby/gems were filtered, when that filter was excluded: #{@not_filtering_gem_root}"
     end
-    
   end
   
   private
