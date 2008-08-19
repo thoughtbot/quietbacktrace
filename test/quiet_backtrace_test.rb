@@ -135,7 +135,7 @@ class QuietBacktraceTest < Test::Unit::TestCase # :nodoc:
   
     def reset_filter!
       self.quiet_backtrace = true
-      self.backtrace_silencers = [:test_unit, :gem_root]
+      self.backtrace_silencers = [:test_unit, :os_x_ruby, :gem_root, :e1]
       self.backtrace_filters = [:method_name]
     end
   

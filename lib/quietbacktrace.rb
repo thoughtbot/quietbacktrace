@@ -67,7 +67,7 @@
 # * James Golick (james@giraffesoft.ca, http://jamesgolick.com) 
 # * Joe Ferris (jferris@thoughtbot.com)
 # 
-# Special thanks to the Boston.rb group (http://boston.rubygroup.org)
+# Special thanks to the Boston.rb group (http://bostonrb.org)
 # for cultivating this idea at our inaugural hackfest. 
 # 
 # == Requirements
@@ -130,7 +130,7 @@ module QuietBacktrace # :nodoc: all
           (line.include?("ruby") && line.include?("/test/unit"))
         end
         new_backtrace_silencer(:os_x_ruby) do |line| 
-          line.include?(/ruby\/1\.8\/benchmark/)
+          line.include?('Ruby.framework')
         end
         new_backtrace_silencer(:gem_root) do |line| 
           line =~ /ruby\/gems/i
