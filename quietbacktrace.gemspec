@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = "quietbacktrace"
-  s.version = "1.1.3"
+  s.version = "1.1.4"
   s.date = "2008-09-11"
   s.email = "dcroak@thoughtbot.com"
   s.homepage = "http://github.com/thoughtbot/quietbacktrace"
