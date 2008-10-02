@@ -7,7 +7,7 @@ It also provides hooks for you to add additional silencers and filters.
 Install
 -------
 
-sudo gem install quietbacktrace
+sudo gem install thoughtbot-quietbacktrace --source=http://gems.github.com
 
 Usage
 -----
@@ -70,15 +70,13 @@ Requirements
 ------------
 
 * Test::Unit 
-* aliasing.rb and attribute_accessors.rb, which are sniped from ActiveSupport and 
-  are included in the gem. They allow quietbacktrace.rb to use alias method chain, 
-  cattr accessor, and mattr accessor.
+* ActiveSupport (alias method chain, cattr accessor, & mattr accessor)
 
 Resources
 ---------
 
 * [mailing list](http://groups.google.com/group/quiet_backtrace)
-* [project site](http://rubyforge.org/projects/quietbacktrace)
+* [project site](http://github.com/thoughtbot/quietbacktrace)
 
 Authors
 -------

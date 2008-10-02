@@ -10,7 +10,7 @@
 #   context "Setting quiet backtrace to false" do
 #   
 #     setup do
-#       self.quiet_backtrace = false
+#       Test::Unit::TestCase.quiet_backtrace = false
 #     end
 #   
 #     should "keep the backtrace noisy" do

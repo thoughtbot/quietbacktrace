@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name = "quietbacktrace"
-  s.version = "1.1.4"
-  s.date = "2008-09-11"
+  s.version = "1.1.5"
+  s.date = "2008-10-0002"
   s.email = "dcroak@thoughtbot.com"
   s.homepage = "http://github.com/thoughtbot/quietbacktrace"
   s.summary     = "Quiet Backtrace suppresses the noise in your Test::Unit backtrace."
