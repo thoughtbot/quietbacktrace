@@ -89,7 +89,9 @@ class QuietBacktraceTest < Test::Unit::TestCase # :nodoc:
   context "A quiet backtrace with complementary Rails silencers and filters" do
     setup do
       reset_filter!
-      ::RAILS_ROOT = '/Users/james/Documents/railsApps/generating_station'
+      unless defined? ::RAILS_ROOT
+        ::RAILS_ROOT = '/Users/james/Documents/railsApps/generating_station'
+      end
       self.backtrace_silencers << :rails_vendor
       self.backtrace_filters << :rails_root
       @mock = MockTestUnit.new
