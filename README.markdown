@@ -14,26 +14,16 @@ Usage
 
 Silencers remove lines from the backtrace. Create your own:
 
-    class Test::Unit::TestCase
-  	  
-    end
+    # Will reject all lines that include the word "mongrel", 
+    # like "/gems/mongrel/server.rb" or "/app/my_mongrel_server/rb"
+    backtrace_cleaner = QuietBacktrace.BacktraceCleaner.new
+    backtrace_cleaner.add_silencer { |line| line =~ /mongrel/ }
 
 Filters modify the output of backtrace lines. Create your own:
 
-    class Test::Unit::TestCase
-      
-    end
-
-Turn Quiet Backtrace off anywhere in your test suite by setting the flag to false:
-
-    Test::Unit::TestCase.quiet_backtrace = false
-
-Rails-specific usage
---------------------
-
-Because Quiet Backtrace works by adding attributes onto Test::Unit::TestCase,
-you can add and remove silencers and filters at any level in your test suite,
-down to the individual test. 
+    # Will turn "/my/rails/root/app/models/person.rb" into "/app/models/person.rb"
+    backtrace_cleaner = QuietBacktrace.BacktraceCleaner.new
+    backtrace_cleaner.add_filter { |line| line.gsub(Rails.root, '') }
 
 Requirements
 ------------
