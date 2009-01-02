@@ -70,7 +70,6 @@ Requirements
 ------------
 
 * Test::Unit 
-* aliasing.rb, sniped from ActiveSupport, allows QB to use alias method chain.
 
 Resources
 ---------

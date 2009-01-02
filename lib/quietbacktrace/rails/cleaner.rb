@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/cleaner'
+require File.join(File.dirname(__FILE__), '..', 'cleaner')
 
 module QuietBacktrace
   module Rails
@@ -17,11 +17,17 @@ module QuietBacktrace
       
       def initialize
         super
-        add_filter { |line| line.sub("#{RAILS_ROOT}/", '') }
+        if defined?(RAILS_ROOT)
+          add_filter { |line| line.sub("#{RAILS_ROOT}/", '') }
+        end
+        
         add_filter { |line| line.sub(ERB_METHOD_SIG, '') }
         add_filter { |line| line.sub('./', '/') }
-        add_filter do |line| 
-          line.sub(/(#{Gem.default_dir})\/gems\/([a-z]+)-([0-9.]+)\/(.*)/, '\2 (\3) \4') 
+        
+        if defined?(Gem)
+          add_filter do |line| 
+            line.sub(/(#{Gem.default_dir})\/gems\/([a-z]+)-([0-9.]+)\/(.*)/, '\2 (\3) \4') 
+          end
         end
 
         add_silencer { |line| ALL_NOISE.any? { |dir| line.include?(dir) } }

@@ -1,5 +1,5 @@
-require File.dirname(__FILE__) + '/test_helper'
-require File.expand_path('../lib/quietbacktrace', File.dirname(__FILE__))
+require File.join(File.dirname(__FILE__), 'test_helper')
+require File.join(File.dirname(__FILE__), '..', 'lib', 'quietbacktrace')
 
 class CleanerTest < Test::Unit::TestCase
   

@@ -15,12 +15,14 @@ module QuietBacktrace
       # self.quiet_backtrace = true
     end
     
-    # Returns the backtrace after all filters and silencers has been run against it. Filters run first, then silencers.
+    # Returns the backtrace after all filters and silencers has been run against it. 
+    # Filters run first, then silencers.
     def clean(backtrace)
       silence(filter(backtrace))
     end
  
-    # Adds a filter from the block provided. Each line in the backtrace will be mapped against this filter.
+    # Adds a filter from the block provided. 
+    # Each line in the backtrace will be mapped against this filter.
     #
     # Example:
     #
