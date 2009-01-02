@@ -17,6 +17,7 @@ module QuietBacktrace
       
       def initialize
         super
+        
         if defined?(RAILS_ROOT)
           add_filter { |line| line.sub("#{RAILS_ROOT}/", '') }
         end

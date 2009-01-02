@@ -12,13 +12,6 @@ sudo gem install thoughtbot-quietbacktrace --source=http://gems.github.com
 Usage
 -----
 
-Quiet Backtrace works by adding new attributes to Test::Unit::TestCase. 
-By default, their values are: 
-
-    self.quiet_backtrace = true
-    self.backtrace_silencers = [:test_unit, :gem_root, :e1]
-    self.backtrace_filters = [:method_name]
-
 Silencers remove lines from the backtrace that return true for given conditions.
 Filters modify the output of backtrace lines.
 

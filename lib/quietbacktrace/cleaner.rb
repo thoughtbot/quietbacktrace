@@ -26,7 +26,8 @@ module QuietBacktrace
     #
     # Example:
     #
-    # # Will turn "/my/rails/root/app/models/person.rb" into "/app/models/person.rb"
+    # Will turn "/my/rails/root/app/models/person.rb" into "/app/models/person.rb"
+    # backtrace_cleaner = QuietBacktrace.Cleaner.new
     # backtrace_cleaner.add_filter { |line| line.gsub(Rails.root, '') }
     def add_filter(&block)
       @filters << block
@@ -37,13 +38,17 @@ module QuietBacktrace
     #
     # Example:
     #
-    # # Will reject all lines that include the word "mongrel", like "/gems/mongrel/server.rb" or "/app/my_mongrel_server/rb"
+    # Will reject all lines that include the word "mongrel", 
+    # like "/gems/mongrel/server.rb" or "/app/my_mongrel_server/rb"
+    # 
+    # backtrace_cleaner = QuietBacktrace.Cleaner.new
     # backtrace_cleaner.add_silencer { |line| line =~ /mongrel/ }
     def add_silencer(&block)
       @silencers << block
     end
  
-    # Will remove all silencers, but leave in the filters. This is useful if your context of debugging suddenly expands as
+    # Will remove all silencers, but leave in the filters. 
+    # This is useful if your context of debugging suddenly expands as
     # you suspect a bug in the libraries you use.
     def remove_silencers!
       @silencers = []
@@ -69,7 +74,7 @@ module QuietBacktrace
   end
   
   # For installing the Cleaner in test/unit
-  module CleanerForTestUnit #:nodoc:
+  module CleanerForTestUnit
     def self.included(klass)
       klass.send :alias_method, :filter_backtrace_without_cleaning, :filter_backtrace
       klass.send :alias_method, :filter_backtrace, :filter_backtrace_with_cleaning
