@@ -1,7 +1,6 @@
 require 'rubygems'
 require 'rake'
 require 'rake/testtask'
-require 'rake/gempackagetask'
 require 'date'
 
 desc "Run the test suite"
