@@ -12,26 +12,16 @@ sudo gem install thoughtbot-quietbacktrace --source=http://gems.github.com
 Usage
 -----
 
-Silencers remove lines from the backtrace that return true for given conditions.
-Filters modify the output of backtrace lines.
-
-Override the defaults by adding your own backtrace_silencers:
+Silencers remove lines from the backtrace. Create your own:
 
     class Test::Unit::TestCase
-  	  self.new_backtrace_silencer :shoulda do |line| 
-        line.include? 'vendor/plugins/shoulda'
-      end
-      self.backtrace_silencers << :shoulda
+  	  
     end
 
-Or your own backtrace_filters:
+Filters modify the output of backtrace lines. Create your own:
 
     class Test::Unit::TestCase
-      self.new_backtrace_filter :ruby_path do |line|
-         ruby_file_path = '/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8'
-         line.slice!(0..(line =~ ruby_file_path)) if (line =~ ruby_file_path)
-      end
-      self.backtrace_filters << :ruby_path
+      
     end
 
 Turn Quiet Backtrace off anywhere in your test suite by setting the flag to false:
@@ -40,20 +30,6 @@ Turn Quiet Backtrace off anywhere in your test suite by setting the flag to fals
 
 Rails-specific usage
 --------------------
-
-Install the gem and add it your Rails app:
-
-* gem install thoughtbot-quietbacktrace --source http://gems.github.com
-* cd vendor/gems
-* gem unpack quietbacktrace
-
-Quiet Backtrace comes with an excellent Rails-specific silencer and filter.
-They must be added (usually in test_helper.rb) because they are not turned on by default:
-
-    class Test::Unit::TestCase
-      self.backtrace_silencers << :rails_vendor
-      self.backtrace_filters   << :rails_root
-    end
 
 Because Quiet Backtrace works by adding attributes onto Test::Unit::TestCase,
 you can add and remove silencers and filters at any level in your test suite,
