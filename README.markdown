@@ -33,7 +33,6 @@ Requirements
 Resources
 ---------
 
-* [mailing list](http://groups.google.com/group/quiet_backtrace)
 * [project site](http://github.com/thoughtbot/quietbacktrace)
 
 Authors
