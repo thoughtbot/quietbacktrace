@@ -16,13 +16,13 @@ Silencers remove lines from the backtrace. Create your own:
 
     # Will reject all lines that include the word "mongrel", 
     # like "/gems/mongrel/server.rb" or "/app/my_mongrel_server/rb"
-    backtrace_cleaner = QuietBacktrace.BacktraceCleaner.new
+    backtrace_cleaner = QuietBacktrace::BacktraceCleaner.new
     backtrace_cleaner.add_silencer { |line| line =~ /mongrel/ }
 
 Filters modify the output of backtrace lines. Create your own:
 
     # Will turn "/my/rails/root/app/models/person.rb" into "/app/models/person.rb"
-    backtrace_cleaner = QuietBacktrace.BacktraceCleaner.new
+    backtrace_cleaner = QuietBacktrace::BacktraceCleaner.new
     backtrace_cleaner.add_filter { |line| line.gsub(Rails.root, '') }
 
 Requirements
