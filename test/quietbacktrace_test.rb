@@ -11,19 +11,22 @@ class RailsCleanerTest < Test::Unit::TestCase
    "rubygems/custom_require", "benchmark.rb",
    ":in `_run_erb_."].each do |each|
     test "silence #{each} noise" do
-      self.filter_backtrace(@backtrace.dup).each do |line| 
+      cleaner.filter_backtrace(@backtrace.dup).each do |line|
         assert !line.include?(each),
           "#{each} noise is not being silenced: #{line}"
       end
     end
   end
-  
+
   test "do not clean a legitimate line" do
     rails_app_line = "/Users/james/Documents/railsApps/generating_station/app/controllers/photos_controller.rb:315"
-    default_quiet_backtrace = self.filter_backtrace(@backtrace.dup)
-    
-    assert default_quiet_backtrace.join.include?(rails_app_line), 
+    default_quiet_backtrace = cleaner.filter_backtrace(@backtrace.dup)
+
+    assert default_quiet_backtrace.join.include?(rails_app_line),
       "Rails app line is being quieted: #{default_quiet_backtrace}"
   end
-  
+
+  def cleaner
+    defined?(MiniTest) ? MiniTest : self
+  end
 end

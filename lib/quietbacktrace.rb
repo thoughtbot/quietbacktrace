@@ -11,12 +11,18 @@ module QuietBacktrace
     def filter_backtrace_with_cleaning(backtrace)
       backtrace = filter_backtrace_without_cleaning(backtrace)
       backtrace = backtrace.first.split("\n") if backtrace.size == 1
-      cleaner = QuietBacktrace::BacktraceCleaner.new 
+      cleaner = QuietBacktrace::BacktraceCleaner.new
       cleaner.clean(backtrace)
     end
   end
 end
 
-Test::Unit::Util::BacktraceFilter.module_eval do 
-  include QuietBacktrace::CleanerForTestUnit 
-end
+Test::Unit::Util::BacktraceFilter.module_eval do
+  include QuietBacktrace::CleanerForTestUnit
+end if defined?(Test::Unit::Util)
+
+module MiniTest
+  def self.filter_backtrace(backtrace)
+    QuietBacktrace::BacktraceCleaner.new.clean(backtrace)
+  end
+end if defined?(MiniTest)
