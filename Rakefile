@@ -15,7 +15,7 @@ end
 
 gem_spec = Gem::Specification.new do |gem_spec|
   gem_spec.name        = "quietbacktrace"
-  gem_spec.version     = "1.1.6"
+  gem_spec.version     = "1.1.7"
   gem_spec.summary     = "Suppresses the noise in your Test::Unit backtraces."
   gem_spec.email       = "support@thoughtbot.com"
   gem_spec.homepage    = "http://github.com/thoughtbot/quietbacktrace"

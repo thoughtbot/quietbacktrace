@@ -1,7 +1,7 @@
 --- !ruby/object:Gem::Specification 
 name: quietbacktrace
 version: !ruby/object:Gem::Version 
-  version: 1.1.6
+  version: 1.1.7
 platform: ruby
 authors: 
 - thoughtbot, inc.
@@ -14,7 +14,7 @@ autorequire:
 bindir: bin
 cert_chain: []
 
-date: 2009-03-01 00:00:00 -05:00
+date: 2009-06-26 00:00:00 -04:00
 default_executable: 
 dependencies: []
 
@@ -32,8 +32,10 @@ files:
 - README.markdown
 - lib/backtrace_cleaner.rb
 - lib/quietbacktrace.rb
-has_rdoc: false
+has_rdoc: true
 homepage: http://github.com/thoughtbot/quietbacktrace
+licenses: []
+
 post_install_message: 
 rdoc_options: []
 
@@ -54,9 +56,9 @@ required_rubygems_version: !ruby/object:Gem::Requirement
 requirements: []
 
 rubyforge_project: 
-rubygems_version: 1.3.1
+rubygems_version: 1.3.4
 signing_key: 
-specification_version: 2
+specification_version: 3
 summary: Suppresses the noise in your Test::Unit backtraces.
 test_files: []
 
