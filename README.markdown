@@ -1,3 +1,10 @@
+DEPRECATED
+==========
+
+Thoughtbot is no longer supporting this project, it hasn't be tested or used since at least Rails 2.x.
+
+We recommend upgrading to Rails 3 as soon as possible, since this gem's functionality was merged into Rails a while ago.
+
 Quiet Backtrace
 ===============
 
